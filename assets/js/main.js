@@ -64,7 +64,7 @@ const posts = [
         "media": "https://unsplash.it/600/400?image=24",
         "author": {
             "name": "Luca Formicola",
-            /* "image": null */
+            "image": "https://unsplash.it/300/300?image=29"
         },
         "likes": 56,
         "created": "2021-04-03"
@@ -143,21 +143,31 @@ function createPost(array,DOMel) {
 
 
 //Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
-function addLike() {
-    
+function add_remove_like(DOMel) {
+
+    DOMel.classList.add('clicked');
+
 }
 
 
-select_like_btn(like_btns);
 /**
  * 
  * @param {HTMLCollection} array 
  */
 function select_like_btn(array) {
-    let like_button;
+
     for (let i = 0; i < array.length; i++) {
-        like_button = array.item(i);
+        const like_button = array.item(i);
+
+        console.log(like_button)
+
+        like_button.addEventListener('click', function() {
+            add_remove_like(this);
+            
+        }) 
+
     }
 
-    return like_button;
 }
+
+select_like_btn(like_btns);
