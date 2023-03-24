@@ -145,7 +145,13 @@ function createPost(array,DOMel) {
 //Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
 function add_remove_like(DOMel) {
 
-    DOMel.classList.add('clicked');
+    
+
+    if (DOMel.classList.contains('clicked')) {
+        DOMel.classList.remove('clicked');
+    } else {
+        DOMel.classList.add('clicked');
+    }
 
 }
 
@@ -159,9 +165,10 @@ function select_like_btn(array) {
     for (let i = 0; i < array.length; i++) {
         const like_button = array.item(i);
 
-        console.log(like_button)
+        
 
         like_button.addEventListener('click', function() {
+            console.log(this)
             add_remove_like(this);
             
         }) 
