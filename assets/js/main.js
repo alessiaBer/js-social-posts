@@ -82,6 +82,7 @@ const posts = [
     }
 ];
 
+console.log(posts[0].likes);
 /*** MILESTONE 1 ***/
 /*** MILESTONE 2 ***/
 
@@ -90,8 +91,50 @@ const posts_container = document.querySelector('.posts-list');
 
 const like_btns = document.getElementsByClassName('like-button')
 console.log(like_btns);
+let num_of_likes;
+
+
+function return_num_likes(array, id) {
+    
+    const thisElement = array.filter((element, index) => {
+        if (index == id - 1) {
+            return element;
+        }
+    })
+
+    num_of_likes = thisElement[0].likes;
+    console.log(num_of_likes)
+}
+
+return_num_likes(posts, 5);
+
+//Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
+function add_remove_like(array, DOMel) {
+
+    /* 
+    
+
+    const thisElement = array.filter((element, index) => {
+        if (index == this_id - 1) {
+            return element;
+        }
+    })
+
+    num_of_likes = thisElement[0].likes; */
+
+    if (DOMel.classList.contains('clicked')) {
+        DOMel.classList.remove('clicked');
+    } else {
+        DOMel.classList.add('clicked');
+        num_of_likes++;
+    }
+
+    return num_of_likes;
+}
+
 //invoco la funzione passando come parametri l'array posts e il posts_container
-createPost(posts, posts_container)
+createPost(posts, posts_container);
+select_like_btn(like_btns);
 
 /**
  * funzione per creare posts e stamparli nella DOM
@@ -122,13 +165,13 @@ function createPost(array,DOMel) {
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="${element.id}">
+                        <a class="like-button  js-like-button" href="#" id="${element.id}">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${element.likes}</b> persone
+                        Piace a <b id="like-counter-1" class="js-likes-counter">${return_num_likes(posts, element.id)}</b> persone
                     </div>
                 </div> 
             </div>            
@@ -140,41 +183,25 @@ function createPost(array,DOMel) {
     })
 }
 
-
-
-//Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
-function add_remove_like(DOMel) {
-
-    
-
-    if (DOMel.classList.contains('clicked')) {
-        DOMel.classList.remove('clicked');
-    } else {
-        DOMel.classList.add('clicked');
-    }
-
-}
-
-
 /**
- * 
- * @param {HTMLCollection} array 
+ * funzione che seleziona i singoli bottoni dall'HTML collection dei bottoni e appende gli eventListener
+ * @param {HTMLCollection} array HTMLcolelction di tutti i like-button della DOM
  */
 function select_like_btn(array) {
-
+    //itero per tutta la lunghezza dell'array
     for (let i = 0; i < array.length; i++) {
+        //assegno ogni i dell'array ad una variabile like_button 
         const like_button = array.item(i);
 
-        
-
+        //al click del bottone
         like_button.addEventListener('click', function() {
-            console.log(this)
-            add_remove_like(this);
+            //console.log(this)
+            //add or remove il like
+            add_remove_like(posts, this);
+
             
         }) 
 
     }
 
 }
-
-select_like_btn(like_btns);
