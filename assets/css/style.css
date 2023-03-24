@@ -119,7 +119,7 @@ h1 {
     font-weight: bold;
 }
 
-.like-button--liked {
+.clicked {
     color: #0CD977;
     cursor: default;
 }

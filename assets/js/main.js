@@ -64,7 +64,7 @@ const posts = [
         "media": "https://unsplash.it/600/400?image=24",
         "author": {
             "name": "Luca Formicola",
-            "image": null
+            /* "image": null */
         },
         "likes": 56,
         "created": "2021-04-03"
@@ -83,9 +83,13 @@ const posts = [
 ];
 
 /*** MILESTONE 1 ***/
+/*** MILESTONE 2 ***/
+
 //seleziono l'elemento della DOM a cui aggiungere i posts
 const posts_container = document.querySelector('.posts-list');
 
+const like_btns = document.getElementsByClassName('like-button')
+console.log(like_btns);
 //invoco la funzione passando come parametri l'array posts e il posts_container
 createPost(posts, posts_container)
 
@@ -134,4 +138,26 @@ function createPost(array,DOMel) {
         //stampo il markup di ogni element dentro l'elemento della DOM
         DOMel.innerHTML += postMarkup;
     })
+}
+
+
+
+//Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
+function addLike() {
+    
+}
+
+
+select_like_btn(like_btns);
+/**
+ * 
+ * @param {HTMLCollection} array 
+ */
+function select_like_btn(array) {
+    let like_button;
+    for (let i = 0; i < array.length; i++) {
+        like_button = array.item(i);
+    }
+
+    return like_button;
 }
